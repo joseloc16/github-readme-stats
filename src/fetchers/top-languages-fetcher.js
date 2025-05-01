@@ -152,12 +152,16 @@ const fetchTopLanguages = async (
       Math.pow(repoNodes[name].count, count_weight);
   });
 
+  // Lista de lenguajes a excluir
+  const excludedLangs = ["CSS", "SCSS"];
+
   const topLangs = Object.keys(repoNodes)
+    .filter((lang) => !excludedLangs.includes(lang))
     .sort((a, b) => repoNodes[b].size - repoNodes[a].size)
     .reduce((result, key) => {
       result[key] = repoNodes[key];
       return result;
-    }, {});
+  }, {});
 
   return topLangs;
 };
