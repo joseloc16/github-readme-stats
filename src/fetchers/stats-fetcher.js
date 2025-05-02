@@ -85,11 +85,12 @@ const GRAPHQL_STATS_QUERY = `
  * Stats fetcher object.
  *
  * @param {object} variables Fetcher variables.
- * @param {string} token GitHub token.
  * @returns {Promise<AxiosResponse>} Axios response.
  */
-const fetcher = (variables, token) => {
+const fetcher = (variables) => {
   const query = variables.after ? GRAPHQL_REPOS_QUERY : GRAPHQL_STATS_QUERY;
+  const token = process.env.PAT_1 || process.env.PAT || "";
+
   return request(
     {
       query,
